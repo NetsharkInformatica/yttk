@@ -56,9 +56,11 @@ class Ui_MainWindow(object):
         self.rd_audio.setFont(font)
         self.rd_audio.setObjectName("rd_audio")
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar.setGeometry(QtCore.QRect(70, 350, 471, 23))
+        self.progressBar.setGeometry(QtCore.QRect(70, 350, 471, 33))
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
+        self.progressBar.setRange(0, 10000)
+        self.progressBar.setValue(0)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 600, 21))
@@ -88,11 +90,13 @@ class Ui_MainWindow(object):
 
 
     def download(self):
+       
         if self.rb_video.isChecked()==True:
             url = self.lineEdit.text()
             yt = YouTube(url)
             video = yt.streams.get_highest_resolution()
             save_path=filedialog.askdirectory()
+          
             video.download(save_path)
         elif self.rd_audio.isChecked() == True:
             try:
